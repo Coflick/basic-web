@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lập Tài Khoản</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background: #000;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Animation vũ trụ */
+      .space {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .star {
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        animation: twinkle var(--duration) infinite ease-in-out;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.2;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Form styling */
+      .form-container {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 30px;
+        width: 400px;
+        box-shadow: 0 0 20px rgba(81, 65, 252, 0.5);
+        border: 1px solid rgba(81, 65, 252, 0.3);
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .form-container:hover {
+        box-shadow: 0 0 30px rgba(81, 65, 252, 0.8);
+      }
+
+      .form-title {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(81, 65, 252, 0.8);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #aaa;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(81, 65, 252, 0.5);
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #5141fc;
+        box-shadow: 0 0 10px rgba(81, 65, 252, 0.5);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(45deg, #5141fc, #8a2be2);
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+
+      .btn:hover {
+        background: linear-gradient(45deg, #8a2be2, #5141fc);
+        box-shadow: 0 0 15px rgba(81, 65, 252, 0.7);
+      }
+
+      .toggle-form {
+        text-align: center;
+        margin-top: 20px;
+        color: #aaa;
+      }
+
+      .toggle-form a {
+        color: #5141fc;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .toggle-form a:hover {
+        color: #8a2be2;
+        text-shadow: 0 0 5px rgba(81, 65, 252, 0.5);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* Thêm hiệu ứng cho logo COMPE */
+      .logo {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 36px;
+        font-weight: bold;
+        background: linear-gradient(45deg, #5141fc, #8a2be2);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 10px rgba(81, 65, 252, 0.3);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="space" id="space"></div>
+
+    <div class="form-container">
+      <div class="logo">COMPETION</div>
+
+      <!-- Login Form -->
+      <div id="login-form">
+        <h2 class="form-title">Login</h2>
+        <form>
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required />
+          </div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="toggle-form">
+          Quên thông tin đăng nhập? <a id="show-register">Đăng kí</a>
+        </div>
+      </div>
+
+      <!-- Register Form -->
+      <div id="register-form" class="hidden">
+        <h2 class="form-title">Đăng kí</h2>
+        <form>
+          <div class="form-group">
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" required />
+          </div>
+          <div class="form-group">
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" required />
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required />
+          </div>
+          <div class="form-group">
+            <label for="register-confirm-password">Confirm Password</label>
+            <input type="password" id="register-confirm-password" required />
+          </div>
+          <button type="submit" class="btn">Đăng kí</button>
+        </form>
+        <div class="toggle-form">
+          Đã có tài khoản? <a id="show-login">Đăng Nhập ngay</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Tạo animation vũ trụ
+      function createSpace() {
+        const space = document.getElementById("space");
+        const starCount = 200;
+
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+
+          // Random kích thước sao
+          const size = Math.random() * 3;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+
+          // Random vị trí
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+
+          // Random thời gian animation
+          const duration = 1 + Math.random() * 5;
+          star.style.setProperty("--duration", `${duration}s`);
+
+          // Random độ sáng
+          star.style.opacity = Math.random();
+
+          space.appendChild(star);
+        }
+      }
+
+      // Chuyển đổi giữa form đăng nhập và đăng ký
+      document
+        .getElementById("show-register")
+        .addEventListener("click", function () {
+          document.getElementById("login-form").classList.add("hidden");
+          document.getElementById("register-form").classList.remove("hidden");
+        });
+
+      document
+        .getElementById("show-login")
+        .addEventListener("click", function () {
+          document.getElementById("register-form").classList.add("hidden");
+          document.getElementById("login-form").classList.remove("hidden");
+        });
+
+      // Xử lý submit form
+      document
+        .querySelector("#login-form form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const username = document.getElementById("login-username").value;
+          const password = document.getElementById("login-password").value;
+
+          // Xử lý đăng nhập ở đây
+          alert(`Login attempt with username: ${username}`);
+        });
+
+      document
+        .querySelector("#register-form form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const username = document.getElementById("register-username").value;
+          const email = document.getElementById("register-email").value;
+          const password = document.getElementById("register-password").value;
+          const confirmPassword = document.getElementById(
+            "register-confirm-password"
+          ).value;
+
+          if (password !== confirmPassword) {
+            alert("Passwords don't match!");
+            return;
+          }
+
+          // Xử lý đăng ký ở đây
+          alert(
+            `Registration attempt with username: ${username}, email: ${email}`
+          );
+
+          // Sau khi đăng ký thành công, chuyển về form đăng nhập
+          document.getElementById("register-form").classList.add("hidden");
+          document.getElementById("login-form").classList.remove("hidden");
+        });
+
+      // Khởi tạo animation khi trang tải xong
+      window.addEventListener("load", createSpace);
+    </script>
+  </body>
+</html>
