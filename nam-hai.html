@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lập Tài Khoản</title>
-      <link rel="stylesheet" href="namhai.css">
+    <link rel="stylesheet" href="nam-hai.css" />
   </head>
   <body>
     <div class="space" id="space"></div>
@@ -111,6 +111,11 @@
           e.preventDefault();
           const username = document.getElementById("login-username").value;
           const password = document.getElementById("login-password").value;
+          if (username === "admin" && password === "admin") {
+            alert("Login successful!");
+            // Redirect to another page or perform any action
+            window.location.href = "index.html"; // Redirect to index.html
+          }
 
           // Xử lý đăng nhập ở đây
           alert(`Login attempt with username: ${username}`);
