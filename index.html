@@ -1,768 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nam Hải Hotel</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Montserrat", sans-serif;
-      }
 
-      body {
-        background-color: #f8f5f2;
-        color: #5e5757;
-        overflow-x: hidden;
-      }
-
-      .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 30px 5%;
-        position: fixed;
-        width: 100%;
-        z-index: 100;
-        transition: background-color 0.3s;
-      }
-
-      .navbar.scrolled {
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .logo {
-        font-size: 24px;
-        font-weight: 700;
-        color: #333;
-        text-decoration: none;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 40px;
-      }
-
-      .nav-links a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 500;
-        font-size: 16px;
-        transition: color 0.3s;
-      }
-
-      .nav-links a:hover {
-        color: #b89d7a;
-      }
-
-      .book-now {
-        background-color: #b89d7a;
-        color: white;
-        padding: 12px 25px;
-        border-radius: 30px;
-        font-weight: 600;
-        transition: all 0.3s;
-      }
-
-      .book-now:hover {
-        background-color: #a58a68;
-        color: white;
-      }
-
-      .hero {
-        height: 100vh;
-        background-image: url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        padding: 0 10%;
-        position: relative;
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          to right,
-          rgba(0, 0, 0, 0.7),
-          rgba(0, 0, 0, 0.3)
-        );
-      }
-
-      .hero-content {
-        max-width: 600px;
-        color: white;
-        z-index: 2;
-      }
-
-      .hero-subtitle {
-        font-size: 18px;
-        margin-bottom: 20px;
-        letter-spacing: 3px;
-        color: #b89d7a;
-      }
-
-      .hero-title {
-        font-size: 72px;
-        font-weight: 300;
-        margin-bottom: 30px;
-        line-height: 1.1;
-      }
-
-      .hero-title span {
-        font-weight: 700;
-      }
-
-      .hero-text {
-        font-size: 16px;
-        margin-bottom: 40px;
-        line-height: 1.6;
-        opacity: 0.8;
-      }
-
-      .hero-buttons {
-        display: flex;
-        gap: 20px;
-      }
-
-      .btn {
-        padding: 15px 35px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s;
-      }
-
-      .btn-primary {
-        background-color: #b89d7a;
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background-color: #a58a68;
-      }
-
-      .btn-secondary {
-        border: 2px solid white;
-        color: white;
-      }
-
-      .btn-secondary:hover {
-        background-color: white;
-        color: #333;
-      }
-
-      .scroll-down {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        z-index: 2;
-        cursor: pointer;
-      }
-
-      .scroll-down span {
-        margin-bottom: 10px;
-        font-size: 14px;
-      }
-
-      .scroll-down i {
-        font-size: 20px;
-        animation: bounce 2s infinite;
-      }
-
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateY(0);
-        }
-        40% {
-          transform: translateY(-10px);
-        }
-        60% {
-          transform: translateY(-5px);
-        }
-      }
-
-      .about-section {
-        padding: 120px 10%;
-        display: flex;
-        align-items: center;
-        gap: 80px;
-      }
-
-      .about-image {
-        flex: 1;
-        position: relative;
-        height: 600px;
-      }
-
-      .main-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-      }
-
-      .small-image {
-        position: absolute;
-        bottom: -40px;
-        right: -40px;
-        width: 300px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 10px;
-        border: 10px solid #f8f5f2;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
-
-      .about-content {
-        flex: 1;
-      }
-
-      .section-subtitle {
-        font-size: 16px;
-        color: #b89d7a;
-        letter-spacing: 3px;
-        margin-bottom: 20px;
-      }
-
-      .section-title {
-        font-size: 48px;
-        font-weight: 300;
-        margin-bottom: 30px;
-        line-height: 1.2;
-      }
-
-      .section-title span {
-        font-weight: 700;
-      }
-
-      .section-text {
-        font-size: 16px;
-        line-height: 1.8;
-        margin-bottom: 30px;
-        color: #666;
-      }
-
-      .signature {
-        margin-top: 30px;
-        font-style: italic;
-        font-weight: 500;
-      }
-
-      .rooms-section {
-        padding: 100px 10%;
-        background-color: white;
-      }
-
-      .section-header {
-        text-align: center;
-        margin-bottom: 60px;
-      }
-
-      .rooms-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 30px;
-      }
-
-      .room-card {
-        background-color: #f8f5f2;
-        border-radius: 10px;
-        overflow: hidden;
-        transition: transform 0.3s;
-      }
-
-      .room-card:hover {
-        transform: translateY(-10px);
-      }
-
-      .room-image {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-      }
-
-      .room-details {
-        padding: 30px;
-      }
-
-      .room-title {
-        font-size: 24px;
-        margin-bottom: 15px;
-      }
-
-      .room-price {
-        color: #b89d7a;
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 15px;
-      }
-
-      .room-features {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 20px;
-      }
-
-      .feature {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 14px;
-      }
-
-      .feature i {
-        color: #b89d7a;
-      }
-
-      .view-btn {
-        display: inline-block;
-        color: #333;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: 10px;
-        transition: color 0.3s;
-      }
-
-      .view-btn:hover {
-        color: #b89d7a;
-      }
-
-      .view-btn i {
-        margin-left: 5px;
-      }
-
-      .amenities-section {
-        padding: 100px 10%;
-        background-color: #f8f5f2;
-      }
-
-      .amenities-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        margin-top: 60px;
-      }
-
-      .amenity-card {
-        text-align: center;
-        padding: 40px 20px;
-        background-color: white;
-        border-radius: 10px;
-        transition: transform 0.3s;
-      }
-
-      .amenity-card:hover {
-        transform: translateY(-10px);
-      }
-
-      .amenity-icon {
-        font-size: 40px;
-        color: #b89d7a;
-        margin-bottom: 20px;
-      }
-
-      .amenity-title {
-        font-size: 20px;
-        margin-bottom: 15px;
-      }
-
-      .amenity-text {
-        color: #666;
-        line-height: 1.6;
-      }
-
-      footer {
-        background-color: #222;
-        color: white;
-        padding: 80px 10% 40px;
-      }
-
-      .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        margin-bottom: 60px;
-      }
-
-      .footer-column h3 {
-        font-size: 20px;
-        margin-bottom: 25px;
-        position: relative;
-        padding-bottom: 15px;
-      }
-
-      .footer-column h3::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 2px;
-        background-color: #b89d7a;
-      }
-
-      .footer-column p {
-        color: #aaa;
-        line-height: 1.8;
-        margin-bottom: 20px;
-      }
-
-      .footer-links {
-        list-style: none;
-      }
-
-      .footer-links li {
-        margin-bottom: 15px;
-      }
-
-      .footer-links a {
-        color: #aaa;
-        text-decoration: none;
-        transition: color 0.3s;
-      }
-
-      .footer-links a:hover {
-        color: #b89d7a;
-      }
-
-      .contact-info {
-        list-style: none;
-      }
-
-      .contact-info li {
-        display: flex;
-        align-items: flex-start;
-        gap: 15px;
-        margin-bottom: 20px;
-        color: #aaa;
-      }
-
-      .contact-info i {
-        color: #b89d7a;
-        margin-top: 5px;
-      }
-
-      .social-links {
-        display: flex;
-        gap: 15px;
-        margin-top: 20px;
-      }
-
-      .social-links a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #333;
-        color: white;
-        transition: all 0.3s;
-      }
-
-      .social-links a:hover {
-        background-color: #b89d7a;
-        transform: translateY(-3px);
-      }
-
-      .footer-bottom {
-        text-align: center;
-        padding-top: 40px;
-        border-top: 1px solid #333;
-        color: #aaa;
-        font-size: 14px;
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="navbar">
-      <a href="#" class="logo">KHách Sạn Nam Hải</a>
-      <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="nam-hai.html">Login</a>
-        <a href="#">Rooms</a>
-        <a href="#">Amenities</a>
-        <a href="foget.html">Đánh Giá</a>
-        <a href="#">Liên Hệ</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nam Hải Hotel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="#" class="logo">KHách Sạn Nam Hải</a>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="nam-hai.html">Login</a>
+      <a href="#">Rooms</a>
+      <a href="#">Amenities</a>
+      <a href="foget.html">Đánh Giá</a>
+      <a href="#">Liên Hệ</a>
+    </div>
+    <a href="#" class="book-now">BOOK NOW</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">Nam Hải HOTEL & RESORT</p>
+      <h1 class="hero-title">Trải Nghiệm điều tốt nhất vì bạn xứng đáng</h1>
+      <p class="hero-text">
+        Nam Hải Hotell mang đến sự sang trọng vô song với tầm nhìn ngoạn
+        mục,các tiện nghi đẳng cấp thế giới và dịch vụ đặc biệt để làm cho kỳ
+        nghỉ của bạn trở nên khó quên.
+      </p>
+      <div class="hero-buttons">
+        <a href="#" class="btn btn-primary">BOOK A ROOM</a>
+        <a href="#" class="btn btn-secondary">khám phá thêm</a>
       </div>
-      <a href="#" class="book-now">BOOK NOW</a>
-    </nav>
+    </div>
+    <div class="scroll-down">
+      <span>lướt xuống</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
 
-    <section class="hero">
-      <div class="hero-content">
-        <p class="hero-subtitle">Nam Hải HOTEL & RESORT</p>
-        <h1 class="hero-title">Trải Nghiệm điều tốt nhất vì bạn xứng đáng</h1>
-        <p class="hero-text">
-          Nam Hải Hotell mang đến sự sang trọng vô song với tầm nhìn ngoạn
-          mục,các tiện nghi đẳng cấp thế giới và dịch vụ đặc biệt để làm cho kỳ
-          nghỉ của bạn trở nên khó quên.
-        </p>
-        <div class="hero-buttons">
-          <a href="#" class="btn btn-primary">BOOK A ROOM</a>
-          <a href="#" class="btn btn-secondary">khám phá thêm</a>
+  <section class="about-section">
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945" alt="Hotel Lobby" class="main-image" />
+      <img src="https://images.unsplash.com/photo-1582719471387-9c060a5c656d" alt="Hotel Room" class="small-image" />
+    </div>
+    <div class="about-content">
+      <p class="section-subtitle">GIỚI THIỆU VỀ KHÁCH SẠN CỦA CHÚNG TÔI</p>
+      <h2 class="section-title">
+        Một tầm nhìn mới của <span>Sự sang trọng</span>
+      </h2>
+      <p class="section-text">
+        Nam Hải định nghĩa lại dịch vụ khách sạn sang trọng với thiết kế hiện
+        đại, dịch vụ đặc biệt và sự chú ý đến từng chi tiết. Khách sạn của
+        chúng tôi kết hợp sự thanh lịch hiện đại với sự thoải mái vượt thời
+        gian để tạo ra một trải nghiệm khó quên.
+      </p>
+      <p class="section-text"></p>
+      <p class="signature">— Hotel Management</p>
+    </div>
+  </section>
+
+  <section class="rooms-section">
+    <div class="section-header">
+      <p class="section-subtitle">OUR ACCOMMODATIONS</p>
+      <h2 class="section-title">Rooms & <span>Suites</span></h2>
+    </div>
+    <div class="rooms-grid">
+      <div class="room-card">
+        <img src="https://dyf.vn/wp-content/uploads/2021/01/tai-sao-thiet-ke-phong-ngu-khach-san-quan-trong-nhat.jpg"
+          alt="Deluxe Room" class="room-image" />
+        <div class="room-details">
+          <h3 class="room-title">Phòng Đơn</h3>
+          <p class="room-price">3 triệu/đêm</p>
+          <div class="room-features">
+            <span class="feature"><i class="fas fa-user"></i> 2 người</span>
+            <span class="feature"><i class="fas fa-expand"></i> 35m²</span>
+          </div>
+          <a href="https://coedo.com.vn/mau-phong-khach-san-7qb0kwg3/" class="view-btn" target="_blank">Xem chi tiết <i
+              class="fas fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="scroll-down">
-        <span>lướt xuống</span>
-        <i class="fas fa-chevron-down"></i>
+      <div class="room-card">
+        <img src="https://kientructayho.vn/wp-content/uploads/2020/12/mau-phong-khach-san-mini-dep-1.jpg"
+          class="room-image" />
+        <div class="room-details">
+          <h3 class="room-title">Phòng đôi</h3>
+          <p class="room-price">5 triệu/đêm</p>
+          <div class="room-features">
+            <span class="feature"><i class="fas fa-user"></i> 4 người</span>
+            <span class="feature"><i class="fas fa-expand"></i> 55m²</span>
+          </div>
+          <a href="https://coedo.com.vn/mau-phong-khach-san-7qb0kwg3/" class="view-btn" target="_blank">Xem chi tiết <i
+              class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
-    </section>
-
-    <section class="about-section">
-      <div class="about-image">
+      <div class="room-card">
         <img
-          src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
-          alt="Hotel Lobby"
-          class="main-image"
-        />
-        <img
-          src="https://images.unsplash.com/photo-1582719471387-9c060a5c656d"
-          alt="Hotel Room"
-          class="small-image"
-        />
+          src="https://shac.vn/wp-content/uploads/2019/10/mau-phong-ngu-khach-san-tieu-chuan-5-sao-dep-sang-trong-1-700x527.jpg"
+          alt="Presidential Suite" class="room-image" />
+        <div class="room-details">
+          <h3 class="room-title">Phòng siêu vip</h3>
+          <p class="room-price">10 triệu/Đêm</p>
+          <div class="room-features">
+            <span class="feature"><i class="fas fa-user"></i> 4 người</span>
+            <span class="feature"><i class="fas fa-expand"></i> 85m²</span>
+          </div>
+          <a href="#" class="view-btn" target="_blank">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
-      <div class="about-content">
-        <p class="section-subtitle">GIỚI THIỆU VỀ KHÁCH SẠN CỦA CHÚNG TÔI</p>
-        <h2 class="section-title">
-          Một tầm nhìn mới của <span>Sự sang trọng</span>
-        </h2>
-        <p class="section-text">
-          Nam Hải định nghĩa lại dịch vụ khách sạn sang trọng với thiết kế hiện
-          đại, dịch vụ đặc biệt và sự chú ý đến từng chi tiết. Khách sạn của
-          chúng tôi kết hợp sự thanh lịch hiện đại với sự thoải mái vượt thời
-          gian để tạo ra một trải nghiệm khó quên.
+    </div>
+  </section>
+
+  <section class="amenities-section">
+    <div class="section-header">
+      <p class="section-subtitle">FACILITIES</p>
+      <h2 class="section-title">Hotel <span>Amenities</span></h2>
+    </div>
+    <div class="amenities-grid">
+      <div class="amenity-card">
+        <div class="amenity-icon">
+          <i class="fas fa-swimming-pool"></i>
+        </div>
+
+        <h3 class="amenity-title">Hồ bơi vô cực</h3>
+        <p class="amenity-text">
+          Hồ bơi vô cực trên tầng thượng của chúng tôi mang đến cho bạn tầm
+          nhìn tuyệt đẹp ra thành phố trong khi thư giãn trong nước.
         </p>
-        <p class="section-text"></p>
-        <p class="signature">— Hotel Management</p>
       </div>
-    </section>
+      <div class="amenity-card">
+        <div class="amenity-icon">
+          <i class="fas fa-spa"></i>
+        </div>
+        <h3 class="amenity-title">dịch vụ spa</h3>
+        <p class="amenity-text">
+          Trẻ hóa với các liệu pháp spa và chương trình chăm sóc sức khỏe đẳng
+          cấp thế giới của chúng tôi
+        </p>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon">
+          <i class="fas fa-utensils"></i>
+        </div>
+        <h3 class="amenity-title">Dịch vụ ăn uống</h3>
+        <p class="amenity-text">Đầy đủ dịch vụ ăn uống cho khách</p>
+      </div>
+      <div class="amenity-card">
+        <div class="amenity-icon">
+          <i class="fas fa-dumbbell"></i>
+        </div>
+        <h3 class="amenity-title">Trung tâm thể dục</h3>
+        <p class="amenity-text">Phòng gym của chúng tôi hoạt động 24/7</p>
+      </div>
+    </div>
+  </section>
 
-    <section class="rooms-section">
-      <div class="section-header">
-        <p class="section-subtitle">OUR ACCOMMODATIONS</p>
-        <h2 class="section-title">Rooms & <span>Suites</span></h2>
-      </div>
-      <div class="rooms-grid">
-        <div class="room-card">
-          <img
-            src="https://dyf.vn/wp-content/uploads/2021/01/tai-sao-thiet-ke-phong-ngu-khach-san-quan-trong-nhat.jpg"
-            alt="Deluxe Room"
-            class="room-image"
-          />
-          <div class="room-details">
-            <h3 class="room-title">Phòng Đơn</h3>
-            <p class="room-price">3 triệu/đêm</p>
-            <div class="room-features">
-              <span class="feature"><i class="fas fa-user"></i> 2 người</span>
-              <span class="feature"><i class="fas fa-expand"></i> 35m²</span>
-            </div>
-            <a
-              href="https://coedo.com.vn/mau-phong-khach-san-7qb0kwg3/"
-              class="view-btn"
-              target="_blank"
-              >Xem chi tiết <i class="fas fa-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-        <div class="room-card">
-          <img
-            src="https://kientructayho.vn/wp-content/uploads/2020/12/mau-phong-khach-san-mini-dep-1.jpg"
-            class="room-image"
-          />
-          <div class="room-details">
-            <h3 class="room-title">Phòng đôi</h3>
-            <p class="room-price">5 triệu/đêm</p>
-            <div class="room-features">
-              <span class="feature"><i class="fas fa-user"></i> 4 người</span>
-              <span class="feature"><i class="fas fa-expand"></i> 55m²</span>
-            </div>
-            <a
-              href="https://coedo.com.vn/mau-phong-khach-san-7qb0kwg3/"
-              class="view-btn"
-              target="_blank"
-              >Xem chi tiết <i class="fas fa-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-        <div class="room-card">
-          <img
-            src="https://shac.vn/wp-content/uploads/2019/10/mau-phong-ngu-khach-san-tieu-chuan-5-sao-dep-sang-trong-1-700x527.jpg"
-            alt="Presidential Suite"
-            class="room-image"
-          />
-          <div class="room-details">
-            <h3 class="room-title">Phòng siêu vip</h3>
-            <p class="room-price">10 triệu/Đêm</p>
-            <div class="room-features">
-              <span class="feature"><i class="fas fa-user"></i> 4 người</span>
-              <span class="feature"><i class="fas fa-expand"></i> 85m²</span>
-            </div>
-            <a href="#" class="view-btn" target="_blank"
-              >Xem chi tiết <i class="fas fa-arrow-right"></i
-            ></a>
-          </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Giới thiệu về chúng tôi</h3>
+        <p>
+          Nam Hải Hottel là một khách sạn sang trọng chuyên cung cấp những
+          trải nghiệm đặc biệt thông qua dịch vụ được cá nhân hóa, chỗ nghỉ
+          thanh lịch và các tiện nghi đẳng cấp thế giới.
+        </p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
-    </section>
-
-    <section class="amenities-section">
-      <div class="section-header">
-        <p class="section-subtitle">FACILITIES</p>
-        <h2 class="section-title">Hotel <span>Amenities</span></h2>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Rooms & Suites</a></li>
+          <li><a href="#">Dining</a></li>
+          <li><a href="#">Spa</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
       </div>
-      <div class="amenities-grid">
-        <div class="amenity-card">
-          <div class="amenity-icon">
-            <i class="fas fa-swimming-pool"></i>
-          </div>
-
-          <h3 class="amenity-title">Hồ bơi vô cực</h3>
-          <p class="amenity-text">
-            Hồ bơi vô cực trên tầng thượng của chúng tôi mang đến cho bạn tầm
-            nhìn tuyệt đẹp ra thành phố trong khi thư giãn trong nước.
-          </p>
-        </div>
-        <div class="amenity-card">
-          <div class="amenity-icon">
-            <i class="fas fa-spa"></i>
-          </div>
-          <h3 class="amenity-title">dịch vụ spa</h3>
-          <p class="amenity-text">
-            Trẻ hóa với các liệu pháp spa và chương trình chăm sóc sức khỏe đẳng
-            cấp thế giới của chúng tôi
-          </p>
-        </div>
-        <div class="amenity-card">
-          <div class="amenity-icon">
-            <i class="fas fa-utensils"></i>
-          </div>
-          <h3 class="amenity-title">Dịch vụ ăn uống</h3>
-          <p class="amenity-text">Đầy đủ dịch vụ ăn uống cho khách</p>
-        </div>
-        <div class="amenity-card">
-          <div class="amenity-icon">
-            <i class="fas fa-dumbbell"></i>
-          </div>
-          <h3 class="amenity-title">Trung tâm thể dục</h3>
-          <p class="amenity-text">Phòng gym của chúng tôi hoạt động 24/7</p>
-        </div>
+      <div class="footer-column">
+        <h3>Contact Info</h3>
+        <ul class="contact-info">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>272 Đường bình minh tp Vinh</span>
+          </li>
+          <li>
+            <i class="fas fa-phone-alt"></i>
+            <span>+84 387264216</span>
+          </li>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <span>giabaohoang184@gmail.com</span>
+          </li>
+        </ul>
       </div>
-    </section>
-
-    <footer>
-      <div class="footer-content">
-        <div class="footer-column">
-          <h3>Giới thiệu về chúng tôi</h3>
-          <p>
-            Nam Hải Hottel là một khách sạn sang trọng chuyên cung cấp những
-            trải nghiệm đặc biệt thông qua dịch vụ được cá nhân hóa, chỗ nghỉ
-            thanh lịch và các tiện nghi đẳng cấp thế giới.
-          </p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <div class="footer-column">
-          <h3>Quick Links</h3>
-          <ul class="footer-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Rooms & Suites</a></li>
-            <li><a href="#">Dining</a></li>
-            <li><a href="#">Spa</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Contact Info</h3>
-          <ul class="contact-info">
-            <li>
-              <i class="fas fa-map-marker-alt"></i>
-              <span>272 Đường bình minh tp Vinh</span>
-            </li>
-            <li>
-              <i class="fas fa-phone-alt"></i>
-              <span>+84 387264216</span>
-            </li>
-            <li>
-              <i class="fas fa-envelope"></i>
-              <span>giabaohoang184@gmail.com</span>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Bản tin</h3>
-          <p>
-            Đăng ký nhận bản tin của chúng tôi để nhận các ưu đãi và cập nhật
-            đặc biệt.
-          </p>
-          <form>
-            <input
-              type="email"
-              placeholder="Your Email"
-              style="
+      <div class="footer-column">
+        <h3>Bản tin</h3>
+        <p>
+          Đăng ký nhận bản tin của chúng tôi để nhận các ưu đãi và cập nhật
+          đặc biệt.
+        </p>
+        <form>
+          <input type="email" placeholder="Your Email" style="
                 width: 100%;
                 padding: 10px;
                 margin-bottom: 10px;
                 border: none;
                 border-radius: 4px;
-              "
-            />
-            <button
-              type="submit"
-              style="
+              " />
+          <button type="submit" style="
                 background-color: #b89d7a;
                 color: white;
                 border: none;
                 padding: 10px 20px;
                 border-radius: 4px;
                 cursor: pointer;
-              "
-            >
-              SUBSCRIBE
-            </button>
-          </form>
-        </div>
+              ">
+            SUBSCRIBE
+          </button>
+        </form>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 khách sạn nam hải kính chào quý khách</p>
-      </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 khách sạn nam hải kính chào quý khách</p>
+    </div>
+  </footer>
 
-    <script>
-      window.addEventListener("scroll", function () {
-        const navbar = document.querySelector(".navbar");
-        if (window.scrollY > 50) {
-          navbar.classList.add("scrolled");
-        } else {
-          navbar.classList.remove("scrolled");
-        }
-      });
-    </script>
-  </body>
+  <script>
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  </script>
+</body>
+
 </html>
