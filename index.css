@@ -4,7 +4,6 @@
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
   }
-
   body {
     background-color: #f8f5f2;
     color: #5e5757;
@@ -67,7 +66,7 @@
 
   .hero {
     height: 100vh;
-    background-image: url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
+    background-image: url("/imgksnamhai.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
